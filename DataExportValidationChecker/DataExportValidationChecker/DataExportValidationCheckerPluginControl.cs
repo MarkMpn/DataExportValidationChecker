@@ -84,6 +84,10 @@ namespace DataExportValidationChecker
                 a.AttributeType == AttributeTypeCode.String && string.IsNullOrEmpty(a.AttributeOf))
                 .Select(t => (StringAttributeMetadata)t).ToList();
 
+            var memoAttrs = entityMetadata.EntityMetadata.Attributes.Where(a =>
+                a.AttributeType == AttributeTypeCode.Memo && string.IsNullOrEmpty(a.AttributeOf))
+                .Select(t => (MemoAttributeMetadata)t).ToList();
+
             var doubleAttr = entityMetadata.EntityMetadata.Attributes.Where(a =>
                     a.AttributeType == AttributeTypeCode.Double && string.IsNullOrEmpty(a.AttributeOf))
                 .Select(t => (DoubleAttributeMetadata)t).ToList();
