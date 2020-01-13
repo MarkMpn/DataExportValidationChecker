@@ -240,13 +240,13 @@ namespace DataExportValidationChecker
                                 field.PopulatedCount += results.Entities.Count(t => !string.IsNullOrEmpty(t.GetAttributeValue<string>(field.LogicalName)));
 
                                 var invalidRecords = results.Entities.Where(t => (t.GetAttributeValue<string>(field.LogicalName) ?? "").Length > field.MaxLength).ToList();
-                                field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id).ToList());
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r[field.LogicalName]}"
-                                }).ToList();
+                                }));
                             }
 
                             if (field.AttrType == SearchAttributeDetails.AttributeType.Int)
@@ -263,12 +263,12 @@ namespace DataExportValidationChecker
                                     (t.GetAttributeValue<int?>(field.LogicalName).Value < field.IntMinValue || t.GetAttributeValue<int?>(field.LogicalName).Value > field.IntMaxValue)).ToList();
 
                                 field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r[field.LogicalName]}"
-                                }).ToList();
+                                }));
                             }
 
                             if (field.AttrType == SearchAttributeDetails.AttributeType.BigInt)
@@ -285,12 +285,12 @@ namespace DataExportValidationChecker
                                     (t.GetAttributeValue<long?>(field.LogicalName).Value <= field.BigIntMinValue || t.GetAttributeValue<long?>(field.LogicalName).Value >= field.BigIntMaxValue)).ToList();
 
                                 field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r[field.LogicalName]}"
-                                }).ToList();
+                                }));
                             }
 
                             if (field.AttrType == SearchAttributeDetails.AttributeType.Double)
@@ -307,12 +307,12 @@ namespace DataExportValidationChecker
                                     (t.GetAttributeValue<double?>(field.LogicalName).Value <= field.DoubleMinValue || t.GetAttributeValue<double?>(field.LogicalName).Value >= field.DoubleMaxValue)).ToList();
 
                                 field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r[field.LogicalName]}"
-                                }).ToList();
+                                }));
                             }
 
                             if (field.AttrType == SearchAttributeDetails.AttributeType.Decimal)
@@ -328,12 +328,12 @@ namespace DataExportValidationChecker
                                     t.GetAttributeValue<decimal?>(field.LogicalName).HasValue &&
                                     (t.GetAttributeValue<decimal?>(field.LogicalName).Value <= field.DecimalMinValue || t.GetAttributeValue<decimal?>(field.LogicalName).Value >= field.DecimalMaxValue)).ToList();
                                 field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r[field.LogicalName]}"
-                                }).ToList();
+                                }));
                             }
 
                             if (field.AttrType == SearchAttributeDetails.AttributeType.Picklist)
@@ -344,12 +344,12 @@ namespace DataExportValidationChecker
                                 ).ToList();
 
                                 field.InvalidIds.AddRange(invalidRecords.Select(t => t.Id));
-                                field.Results = invalidRecords.Select(r => new ResultDetails()
+                                field.Results.AddRange(invalidRecords.Select(r => new ResultDetails()
                                 {
                                     Id = r.Id,
                                     Name = r.GetAttributeValue<string>(entitySelection.SelectedEntity.PrimaryNameAttribute),
                                     Failure = $"Invalid data: {r.GetAttributeValue<OptionSetValue>(field.LogicalName).Value}"
-                                }).ToList();
+                                }));
                             }
                         }
 
