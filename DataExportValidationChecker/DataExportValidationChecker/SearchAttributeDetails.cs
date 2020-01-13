@@ -13,6 +13,7 @@ namespace DataExportValidationChecker
 
         [DisplayName("Display Name")]
         public string DisplayName { get; set; }
+
         [DisplayName("Attribute Type")]
         public AttributeType AttrType { get; set; }
 
@@ -56,8 +57,15 @@ namespace DataExportValidationChecker
 
         public SearchAttributeDetails()
         {
+            Reset();
+        }
+
+        public void Reset()
+        {
             InvalidIds = new List<Guid>();
             Results = new List<ResultDetails>();
+            EmptyCount = 0;
+            PopulatedCount = 0;
         }
 
         public enum AttributeType
