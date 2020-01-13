@@ -117,6 +117,14 @@ namespace DataExportValidationChecker
                 MaxLength = t.MaxLength
             }));
 
+            searchDetails.AddRange(memoAttrs.Select(t => new SearchAttributeDetails()
+            {
+                LogicalName = t.LogicalName,
+                DisplayName = t.DisplayName.UserLocalizedLabel?.Label ?? t.LogicalName,
+                AttrType = SearchAttributeDetails.AttributeType.String,
+                MaxLength = t.MaxLength
+            }));
+
             searchDetails.AddRange(doubleAttr.Select(t => new SearchAttributeDetails()
             {
                 LogicalName = t.LogicalName,
